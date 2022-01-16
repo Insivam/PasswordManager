@@ -1,6 +1,7 @@
 from random import randint
 from string import punctuation
 from time import sleep
+from pyperclip import copy
 
 
 def pass_gen(pass_size=False):
@@ -42,7 +43,7 @@ def show():
     print('\033[1;36;40m')
     print('-'*87)
     print(
-        f'| {"ID".center(4)} | {"Website/App".center(25)} | {"Usuario".center(30)} | {"Password".center(15)} |')
+        f'| {"ID".center(4)} | {"Website/App".center(25)} | {"Username".center(30)} | {"Password".center(15)} |')
     print('-'*87)
 
     open_file(close=False)
@@ -58,6 +59,38 @@ def show():
 
     print('-'*87)
     print('\033[m')
+
+    while True:
+        try:
+            UI = int(input('\033[1;35;40mChoose an ID: '))
+            print('\033[036m', end='')
+
+        except Exception:
+            print('\033[1;31;40mNot a valid ID!\033[m\n')
+            sleep(1)
+            continue
+
+        if UI < 0 or UI >= len(data):
+            print('\033[1;31;40mNot a valid ID!\033[m\n')
+            sleep(1)
+            continue
+
+        if UI == -1:
+            return
+        break
+
+    chosen = data[UI]
+
+    password = chosen[chosen.index("~", chosen.index("~")+1)+1:]
+    username = chosen[chosen.index(
+        "~")+1: chosen.index("~", chosen.index("~")+1)]
+
+    copy(username)
+    input('\033[1;32;40m📎Username copied 📎\033[m')
+
+    copy(password)
+    input('\033[1;32;40m📎Password copied 📎\033[m')
+
     file.close()
 
 
